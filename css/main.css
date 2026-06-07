@@ -173,7 +173,7 @@ nav a {
 
 .screenshot-grid img {
     width: auto;
-    max-width: 400px;
+    max-width: 500px;
     height: auto;
     border-radius: 12px;
     border: 1px solid var(--border);
