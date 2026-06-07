@@ -25,7 +25,14 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
     color: var(--text);
     line-height: 1.6;
-    background: #fafafa;
+    background:
+        radial-gradient(circle at top left,
+            rgba(247, 151, 26, 0.1),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba(9, 248, 21, 0.06),
+            transparent 40%),
+        #fafafa;
 
     padding-top: 80px; /* adjust to match header height */
 }
