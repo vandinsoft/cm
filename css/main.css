@@ -34,7 +34,7 @@ body {
             transparent 40%),
         #fafafa;
 
-    padding-top: 80px; /* adjust to match header height */
+    padding-top: 40px; /* adjust to match header height */
 }
 
 header {
@@ -83,7 +83,7 @@ nav a {
 .hero {
     max-width: 1100px;
     margin: auto;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
 }
 
@@ -130,10 +130,10 @@ nav a {
 .features-screenshots {
     max-width: 1100px;
     margin: auto;
-    padding: 20px;
+    padding: 5px;
     display: grid;
     grid-template-columns: fit-content(350px) 1fr;
-    gap: 40px;
+    gap: 20px;
     align-items: start;
 }
 
@@ -147,16 +147,15 @@ nav a {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: max-content;
+    width: 350px;
 }
 
 .feature-card {
     background: white;
-    padding: 15px;
+    padding: 5px;
     border-radius: 12px;
     border: 1px solid var(--border);
-    width: max-content;
-    max-width: 350px;
+    width: 100%;
 }
 
 .feature-card h3 {
@@ -174,21 +173,11 @@ nav a {
 
 .screenshot-grid img {
     width: auto;
-    max-width: 600px;
+    max-width: 400px;
     height: auto;
     border-radius: 12px;
     border: 1px solid var(--border);
     display: block;
-}
-
-/* ==========================================
-   Footer
-   ========================================== */
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--light-text);
 }
 
 /* ==========================================
@@ -215,8 +204,8 @@ footer {
 
 .contact {
     max-width: 1100px;
-    margin: 30px auto;
-    padding: 20px;
+    margin: 30px auto 5px auto;
+    padding: 5px;
 
     display: flex;
     align-items: center;
@@ -244,3 +233,14 @@ footer {
     margin: 0;
     white-space: nowrap;
 }
+
+/* ==========================================
+   Footer
+   ========================================== */
+
+footer {
+    text-align: center;
+    padding: 5px;
+    color: var(--light-text);
+}
+
