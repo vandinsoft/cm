@@ -1,261 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Manager</title>
 
-<title>Contact Manager</title>
-
-<style>
-:root {
-    --primary: #5b7cfa;
-    --secondary: #eef2ff;
-    --text: #222;
-    --light-text: #666;
-    --border: #e0e0e0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--text);
-    line-height: 1.6;
-    background: #fafafa;
-}
-
-header {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 20px 40px;
-}
-
-nav {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-
-.hero {
-    max-width: 1100px;
-    margin: auto;
-    padding: 100px 40px;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    color: var(--light-text);
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: auto;
-}
-
-.hero-buttons {
-    margin-top: 40px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin: 10px;
-    font-weight: 600;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-}
-
-.btn-secondary {
-    border: 1px solid var(--border);
-    color: var(--text);
-    background: white;
-}
-
-.features {
-    max-width: 1100px;
-    margin: auto;
-    padding: 60px 40px;
-}
-
-.features h2 {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 30px;
-}
-
-.feature-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-}
-
-.feature-card h3 {
-    margin-bottom: 10px;
-}
-
-.screenshots {
-    max-width: 1100px;
-    margin: auto;
-    padding: 60px 40px;
-}
-
-.screenshot-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    gap: 20px;
-}
-
-.screenshot-grid img {
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-}
-
-.download {
-    background: var(--secondary);
-    text-align: center;
-    padding: 80px 40px;
-}
-
-.download h2 {
-    margin-bottom: 20px;
-}
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--light-text);
-}
-</style>
-
-</head>
-<body>
-
-<header>
-    <nav>
-        <div class="logo">Contact Manager</div>
-
-        <div>
-            <a href="#features">Features</a>
-            &nbsp;&nbsp;
-            <a href="#download">Download</a>
-        </div>
-    </nav>
-</header>
-
-<section class="hero">
-
-    <h1>Contact Manager</h1>
-
-    <p>
-        Simplifying Business, One Click at a Time.
-    </p>
-
-    <div class="hero-buttons">
-
-        <a class="btn btn-primary"
-           href="https://github.com/vandinsoft/cm/releases/latest/download/ContactManagerSetup.exe">
-           Download Latest Version
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body id="top">
+    <header>
+      <nav>
+        <a href="#top" class="logo">
+          <img
+            src="images/ContactManager.png"
+            alt="Contact Manager Icon"
+            class="logo-icon"
+          />
+          <span>Contact Manager</span>
         </a>
+        <div>
+          <a href="#features">Features</a>
+          &nbsp;&nbsp;
+          <a href="#contact">Contact Us</a>
+        </div>
+      </nav>
+    </header>
 
-    </div>
+    <section class="hero">
+      <h1>Contact Manager</h1>
 
-</section>
+      <p>Simplifying Business, One Click at a Time.</p>
 
-<section id="features" class="features">
+      <div class="hero-buttons">
+        <a
+          class="btn btn-primary"
+          href="https://github.com/vandinsoft/cm/releases/latest/download/ContactManagerSetup.exe"
+        >
+          Download Latest Version
+        </a>
+      </div>
+    </section>
 
-    <h2>Features</h2>
+    <section id="features" class="features-screenshots">
+      <div class="features-column">
+        <h2>Features</h2>
 
-    <div class="feature-grid">
-
-        <div class="feature-card">
+        <div class="feature-grid">
+          <div class="feature-card">
             <h3>Fast</h3>
             <p>Designed for performance and responsiveness.</p>
-        </div>
+          </div>
 
-        <div class="feature-card">
+          <div class="feature-card">
             <h3>Simple</h3>
             <p>Easy to install and easy to use.</p>
-        </div>
+          </div>
 
-        <div class="feature-card">
+          <div class="feature-card">
             <h3>Secure</h3>
             <p>Your data remains under your control.</p>
+          </div>
         </div>
+      </div>
 
-    </div>
+      <div class="screenshots-column">
+        <h2>Screenshots</h2>
 
-</section>
+        <div class="screenshot-grid">
+          <img src="images/screenshot1.png" alt="Screenshot 1" />
+        </div>
+      </div>
+    </section>
 
-<section class="screenshots">
+    <section id="contact" class="contact">
+      <h2>Contact Us</h2>
 
-    <h2 style="text-align:center;margin-bottom:40px;">
-        Screenshots
-    </h2>
+      <div class="contact-card">
+        <p>
+          <strong>Name:</strong>
+          Kaushik Bhatnagar
+        </p>
 
-    <div class="screenshot-grid">
+        <p>
+          <strong>Phone:</strong>
+          +91 9848 220 745
+        </p>
 
-        <img src="images/screenshot1.png"
-             alt="Screenshot 1">
+        <p>
+          <strong>Email:</strong>
+          <a href="mailto:vandinsoft@gmail.com">vandinsoft@gmail.com</a>
+        </p>
+      </div>
+    </section>
+    <footer>
+      © 2026 Contact Manager
 
-        <img src="images/screenshot2.png"
-             alt="Screenshot 2">
+      <br />
 
-    </div>
-
-</section>
-
-<section id="download" class="download">
-
-    <h2>Download Contact Manager</h2>
-
-    <p>
-        Get the latest version directly from here.
-    </p>
-
-    <br>
-
-    <a class="btn btn-primary"
-       href="https://github.com/vandinsoft/cm/releases/latest/download/ContactManagerSetup.exe">
-       Download Now
-    </a>
-
-</section>
-
-<footer>
-
-    © 2026 Contact Manager
-
-    <br><br>
-
-    Powered by Vandin Software Company
-
-</footer>
-
-</body>
+      Powered by Vandin Software Company
+    </footer>
+  </body>
 </html>
