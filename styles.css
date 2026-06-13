@@ -1,317 +1,311 @@
 :root {
-    --primary: #5b7cfa;
-    --primary-dark: #4568f0;
-    --secondary: #eef2ff;
-    --text: #222;
-    --light-text: #666;
-    --border: #e5e7eb;
+  --primary: #5b7cfa;
+  --primary-dark: #4568f0;
+  --secondary: #111111;
+  --text: #222;
+  --light-text: #666;
+  --border: #e5e7eb;
+  --contrast: #eeeeee;
+  --logo: #afacac;
+  --logo-bacground: #333333;
+  --logo-shadow: #FFD54A;
+  --green: #1de61d;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--text);
-    line-height: 1.6;
-
-    background: #fafafa;
-
-    min-height: 100vh;
-
-    position: relative;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background: #fafafa;
+  min-height: 100vh;
+  position: relative;
 }
 
 body::before {
-
     content: "";
-
     position: fixed;
-
     inset: 0;
-
     pointer-events: none;
-
     z-index: -1;
 
     background:
-
         radial-gradient(
-            circle 600px at 5% 5%,
-            rgba(255,153,51,0.22),
+            ellipse 140% 55% at 50% 16.7%,
+            rgba(255, 153, 51, 0.22),
             transparent 75%
         ),
 
         radial-gradient(
-            circle 700px at 50% 30%,
-            rgba(91,124,250,0.15),
+            ellipse 140% 60% at 50% 50%,
+            rgba(91, 124, 250, 0.15),
             transparent 75%
         ),
 
         radial-gradient(
-            circle 600px at 95% 95%,
-            rgba(107,142,35,0.20),
+            ellipse 140% 55% at 50% 83.3%,
+            rgba(107, 142, 35, 0.20),
             transparent 75%
         );
 
-    filter: blur(20px);
+    filter: blur(24px);
 }
 
 header {
-
     position: sticky;
     top: 0;
-
     z-index: 1000;
+    overflow: hidden;
+        box-shadow:
+        inset 0 -2px 10px rgba(0,0,0,0.35),
+        0 2px 8px rgba(0,0,0,0.15);
 
-    background: rgba(255,255,255,0.9);
-
-    backdrop-filter: blur(10px);
-
-    border-bottom: 1px solid rgba(255,255,255,0.7);
 }
 
+header::before {
+    content: "";
+    position: absolute;
+    inset: -100px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.35),
+            rgba(0,0,0,0.35)
+        ),
+        url("images/brick-wall.jpg");
+
+    background-size: 400px;
+    background-repeat: repeat;
+
+    transform: rotate(-8deg);
+
+    z-index: -1;
+}
 nav {
-
-    max-width: 1300px;
-    margin: auto;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 15px 20px;
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
 }
 
-.logo {
-
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    text-decoration: none;
-
-    color: var(--primary);
-
-    font-size: 1.5rem;
-    font-weight: 700;
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
 
-    width: 36px;
-    height: 36px;
+.logo-text {
+  color: #e6e6e6;
+  font-size: 1.5rem;
+  font-weight: 700;
 
-    object-fit: contain;
+  background: #454545;
+  padding: 6px 12px;
+  border-radius: 6px;
 
-    flex-shrink: 0;
+  /* 3D extrusion effect */
+  text-shadow:
+    0 0 10px rgba(255, 193, 7, 0.9),
+    0 0 18px rgba(255, 193, 7, 0.6);
+
+  display: inline-block;
+}
+
+.logo:hover .logo-text {
+  text-shadow:
+    0 0 10px rgba(255, 193, 7, 0.9),
+    0 0 18px rgba(255, 193, 7, 0.6);
 }
 
 .nav-links {
-
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 .nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 4px;
+}
 
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 600;
+/* active underline */
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--text);
+  border-radius: 2px;
 }
 
 .hero {
-
-    text-align: center;
-
-    max-width: 1200px;
-    margin: auto;
-
-    padding: 0px 20px 50px;
+  text-align: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0px 20px 20px;
 }
 
-.hero h1 {
-
-    font-size: 3.5rem;
-    margin-bottom: 15px;
+.hero h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0px;
 }
 
 .hero p {
-
-    max-width: 800px;
-    margin: auto;
-
-    color: var(--light-text);
-    font-size: 1.2rem;
+  max-width: 800px;
+  margin: auto;
+  color: var(--light-text);
+  font-size: 1.2rem;
 }
 
 .main-content {
-
-    max-width: 1300px;
-    margin: auto;
-
-    padding: 0px;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 30px;
+  max-width: 1300px;
+  margin: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding-bottom: 0px;
 }
 
 .features-column,
 .downloads-column {
-    display: grid;
-    grid-template-rows:
-        auto   /* heading */
-        1fr    /* first card */
-        1fr;   /* second card */
+  display: grid;
+  grid-template-rows:
+    auto /* heading */
+    1fr; /* first card */
+  gap: 20px;
+}
 
-    gap: 20px;
+.feature-list {
+  margin-bottom: 30px;
 }
 
 .section {
-
-    max-width: 1300px;
-    margin: auto;
-
-    padding: 20px 20px;
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 20px 20px;
+  padding-top: 20px;
 }
 
 .section-heading {
-
-    text-align: center;
+  text-align: center;
 }
 
 .card,
 .download-card,
 .audience-container,
 .contact-card {
-
-    background: rgba(255,255,255,0.82);
-
-    backdrop-filter: blur(12px);
-
-    border-radius: 18px;
-
-    border: 1px solid rgba(255,255,255,0.8);
-
-    padding: 30px;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 20px 20px 0px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .download-card {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .download-card .btn {
-    margin-top: auto;
-    align-self: center;
+  margin-top: 10px;
+  align-self: center;
+  margin-bottom: auto;
 }
 
 .card ul {
-
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 .card li {
-
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.download-card {
+.download-card h3 {
+  margin-bottom: 6px;
+}
 
-    text-align: center;
+.download-card p {
+  margin: 0 0 10px;
 }
 
 .btn {
-
-    display: inline-block;
-
-    margin-top: 20px;
-
-    padding: 12px 24px;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-    font-weight: 600;
+  display: inline-block;
+  margin-top: 0px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .btn-primary {
-
-    background: var(--primary);
-    color: white;
+  background: var(--green);
+  color: var(--contrast);
 }
 
 .btn-disabled {
-
-    background: #bfc5d2;
-
-    color: #ffffff;
-
-    cursor: not-allowed;
-
-    opacity: 0.7;
-
-    pointer-events: none;
+  background: #bfc5d2;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .audience-list {
-
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 15px;
-
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 
 .audience-item {
-
-    background: var(--secondary);
-
-    color: var(--primary);
-
-    padding: 10px 18px;
-
-    border-radius: 999px;
-
-    font-weight: 600;
+  background: var(--secondary);
+  color: var(--contrast);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
 }
 
 .contact-card {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    gap: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
 
 .contact-card a {
-
-    color: var(--primary);
-    text-decoration: none;
+  color: var(--primary);
+  text-decoration: none;
 }
 
 footer {
-
-    text-align: center;
-
-    padding: 30px;
-
-    color: var(--light-text);
+  text-align: center;
+  padding: 0 30px;
+  color: var(--light-text);
 }
 
 /* ==========================================
@@ -319,82 +313,52 @@ footer {
    ========================================== */
 
 .pdf-page {
-
-    margin-top: 10px;
-
-    max-width: 1200px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    padding: 20px;
+  margin-top: 10px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
 }
 
 .pdf-title {
-
-    text-align: center;
-
-    color: var(--primary);
-
-    margin-bottom: 20px;
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
 }
 
 .pdf-container {
-
-    display: flex;
-
-    justify-content: center;
-
-    background: white;
-
-    border-radius: 12px;
-
-    padding: 20px;
-
-    border: 1px solid var(--border);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 #pdf-canvas {
-
-    max-width: 100%;
-
-    display: block;
+  max-width: 100%;
+  display: block;
 }
 
 .pdf-navigation {
-
-    margin-top: 20px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 30px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
 
 .pdf-navigation button {
-
-    background: var(--primary);
-
-    color: white;
-
-    border: none;
-
-    border-radius: 8px;
-
-    padding: 10px 18px;
-
-    cursor: pointer;
-
-    font-weight: 600;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .pdf-navigation button:hover {
-
-    opacity: 0.9;
+  opacity: 0.9;
 }
