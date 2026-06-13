@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vandin Contact Manager</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html" class="logo">
+          <img
+            src="images/ContactManager.png"
+            alt="Vandin Contact Manager"
+            class="logo-icon"
+          />
+
+          <span>Vandin Contact Manager</span>
+        </a>
+        <div class="nav-links">
+          <a href="AboutUs.html">About Us</a>
+          <a href="installation-kit.html">Installation Kit</a>
+          <a href="index.html#contact">Contact Us</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="pdf-page">
+      <h1 class="pdf-title">Installation Kit</h1>
+
+      <div class="pdf-container">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+
+      <div class="pdf-navigation">
+        <button id="prev-page">◀ Previous</button>
+
+        <span>
+          Page
+          <span id="page-num">1</span>
+          of
+          <span id="page-count">0</span>
+        </span>
+
+        <button id="next-page">Next ▶</button>
+      </div>
+    </section>
+
+    <script type="module">
+      import * as pdfjsLib from "./pdfjs/build/pdf.mjs";
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/build/pdf.worker.mjs";
+
+      let pdfDoc = null;
+      let currentPage = 1;
+
+      const canvas = document.getElementById("pdf-canvas");
+
+      const ctx = canvas.getContext("2d");
+
+      async function renderPage(pageNumber) {
+        const page = await pdfDoc.getPage(pageNumber);
+
+        const containerWidth =
+          document.querySelector(".pdf-container").clientWidth - 40;
+
+        const viewport = page.getViewport({ scale: 1 });
+
+        const scale = containerWidth / viewport.width;
+
+        const scaledViewport = page.getViewport({ scale });
+
+        canvas.width = scaledViewport.width;
+
+        canvas.height = scaledViewport.height;
+
+        await page.render({
+          canvasContext: ctx,
+          viewport: scaledViewport,
+        }).promise;
+
+        document.getElementById("page-num").textContent = pageNumber;
+      }
+
+      const loadingTask = pdfjsLib.getDocument({
+        url: "./installation-kit.pdf",
+      });
+
+      loadingTask.promise
+        .then(async (pdf) => {
+          pdfDoc = pdf;
+
+          document.getElementById("page-count").textContent = pdf.numPages;
+
+          await renderPage(currentPage);
+        })
+        .catch((error) => {
+          console.error("PDF loading error:", error);
+        });
+
+      document
+        .getElementById("prev-page")
+        .addEventListener("click", async () => {
+          if (!pdfDoc || currentPage <= 1) return;
+
+          currentPage--;
+
+          await renderPage(currentPage);
+        });
+
+      document
+        .getElementById("next-page")
+        .addEventListener("click", async () => {
+          if (!pdfDoc || currentPage >= pdfDoc.numPages) return;
+
+          currentPage++;
+
+          await renderPage(currentPage);
+        });
+
+      window.addEventListener("resize", () => {
+        if (pdfDoc) {
+          renderPage(currentPage);
+        }
+      });
+    </script>
+  </body>
+</html>
