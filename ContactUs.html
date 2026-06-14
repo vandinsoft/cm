@@ -10,27 +10,110 @@
   </head>
   <body>
     <div id="header"></div>
-    <section id="contact" class="section">
-      <div class="section-heading">
-        <h2>Contact Us</h2>
+
+    <section class="contact-section">
+      <div class="contact-form-card">
+        <h2>Book Free Consultation</h2>
+        <p class="form-subtitle">
+          Let us show you how VANDIN Contact Manager can help you track leads
+          and never miss a follow-up.
+        </p>
+
+        <form id="consultationForm" class="contact-form">
+          <input type="hidden" name="access_key" value="c65c8033-51c3-427b-a42f-543de06604a4"/>
+          <input type="hidden" name="subject" value="New Consultation Request"/>
+          <input type="hidden" name="from_name" value="VANDIN Contact Manager Website"/>
+          <input type="checkbox" name="botcheck" style="display: none" />
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="tel" id="mobile" name="mobile" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          
+          <button id="sendButton" type="submit" class="btn btn-primary">
+            Send Request
+          </button>
+
+          <div id="formMessage" class="form-message"></div>
+        </form>
       </div>
+    </section>
 
+    <section id="contact" class="section">
+      <div class="section-heading"><h2>Contact Us</h2></div>
       <div class="contact-card">
+        <div><strong>Name:</strong>Kaushik Bhatnagar</div>
+        <div><strong>Phone:</strong>+91 9848 220 745</div>
         <div>
-          <strong>Name:</strong>
-          Kaushik Bhatnagar
-        </div>
-
-        <div>
-          <strong>Phone:</strong>
-          +91 9848 220 745
-        </div>
-
-        <div>
-          <strong>Email:</strong>
-          <a href="mailto:vandinsoft@gmail.com"> vandinsoft@gmail.com </a>
+          <strong>Email:</strong
+          ><a href="mailto:vandinsoft@gmail.com"> vandinsoft@gmail.com </a>
         </div>
       </div>
     </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("consultationForm");
+        const button = document.getElementById("sendButton");
+        const message = document.getElementById("formMessage");
+
+        let submitted = false;
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          button.disabled = true;
+          button.textContent = "Sending...";
+          const formData = new FormData(form);
+
+          try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              submitted = true;
+              message.textContent =
+                "Thank you. Your consultation request has been submitted successfully.";
+              message.className = "form-message success";
+              button.textContent = "Request Submitted";
+              button.disabled = true;
+            } else {
+              throw new Error(result.message);
+            }
+          } catch (error) {
+            console.error("Web3Forms submission failed", error);
+            message.textContent =
+              "Unable to submit the form. Please try again later.";
+            message.className = "form-message error";
+            button.textContent = "Send Request";
+            button.disabled = false;
+          }
+        });
+
+        form.addEventListener("input", () => {
+          if (!submitted) {
+            return;
+          }
+
+          submitted = false;
+          message.textContent = "";
+          button.disabled = false;
+          button.textContent = "Send Request";
+        });
+      });
+    </script>
   </body>
 </html>
