@@ -1,0 +1,39 @@
+name: Generate Blog Index
+
+on:
+  push:
+    paths:
+      - "blogs/**"
+      - ".github/workflows/generate-blog-index.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-index:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate Index
+        run: node scripts/generate-blog-index.js
+
+      - name: Commit Changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add blog-index.json
+
+          git diff --staged --quiet || git commit -m "Update blog index"
+
+          git push
