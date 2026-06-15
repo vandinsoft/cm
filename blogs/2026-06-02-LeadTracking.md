@@ -1,3 +1,9 @@
+---
+title: Lead Tracking
+date: 2026-06-02
+tags: Leads, Tracking
+excerpt: The Digital Revolution - How Software Shapes Sales and Marketing
+---
 **Lead Tracking**
 
 **Lead Tracking still people are using old methods?**
