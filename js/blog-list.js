@@ -7,7 +7,6 @@ let currentPage = 1;
 let selectedTag = "All";
 
 const blogGrid = document.getElementById("blogGrid");
-const featuredPost = document.getElementById("featuredPost");
 const tagContainer = document.getElementById("tagContainer");
 const pagination = document.getElementById("pagination");
 const searchInput = document.getElementById("searchInput");
@@ -15,93 +14,50 @@ const searchInput = document.getElementById("searchInput");
 initialize();
 
 async function initialize() {
-    try {
-        const response = await fetch("blog-index.json");
+  try {
+    const response = await fetch("blog-index.json");
 
-        if (!response.ok) {
-            throw new Error("Unable to load blog index");
-        }
+    if (!response.ok) {
+      throw new Error("Unable to load blog index");
+    }
 
-        allPosts = await response.json();
+    allPosts = await response.json();
 
-        // Newest first
+    // Newest first
 
-        allPosts.sort(
-            (a, b) => new Date(b.date) - new Date(a.date)
-        );
+    allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        filteredPosts = [...allPosts];
+    filteredPosts = [...allPosts];
 
-        renderFeaturedPost();
-        renderTags();
-        renderPage(1);
+    renderTags();
+    renderPage(1);
 
-        searchInput.addEventListener(
-            "input",
-            applyFilters
-        );
-
-    } catch (error) {
-
-        blogGrid.innerHTML = `
+    searchInput.addEventListener("input", applyFilters);
+  } catch (error) {
+    blogGrid.innerHTML = `
             <div class="empty-state">
                 Unable to load blog posts.
             </div>
         `;
 
-        console.error(error);
-    }
-}
-
-function renderFeaturedPost() {
-
-    if (allPosts.length === 0) {
-        featuredPost.innerHTML = "";
-        return;
-    }
-
-    const post = allPosts[0];
-
-    featuredPost.innerHTML = `
-        <div class="featured-card">
-
-            <h2>${escapeHtml(post.title)}</h2>
-
-            <p>
-                ${escapeHtml(post.excerpt || "")}
-            </p>
-
-            <div class="featured-meta">
-                ${formatDate(post.date)}
-                •
-                ${estimateReadingTime(post.wordCount)}
-            </div>
-
-            <a
-                class="featured-link"
-                href="blog-post.html?post=${encodeURIComponent(post.file)}">
-                Read Article →
-            </a>
-
-        </div>
-    `;
+    console.error(error);
+  }
 }
 
 function renderTags() {
+  const tagSet = new Set();
 
-    const tagSet = new Set();
-
-    allPosts.forEach(post => {
-
-        (post.tags || []).forEach(tag => {
-            tagSet.add(tag);
-        });
-
+  allPosts.forEach((post) => {
+    (post.tags || []).forEach((tag) => {
+      tagSet.add(tag);
     });
+  });
 
-    const tags = ["All", ...Array.from(tagSet).sort()];
+  const tags = ["All", ...Array.from(tagSet).sort()];
 
-    tagContainer.innerHTML = tags.map(tag => `
+  tagContainer.innerHTML = tags
+    .map(
+      (tag) => `
         <button
             class="tag ${tag === selectedTag ? "active" : ""}"
             data-tag="${escapeHtml(tag)}">
@@ -109,157 +65,139 @@ function renderTags() {
             ${escapeHtml(tag)}
 
         </button>
-    `).join("");
+    `,
+    )
+    .join("");
 
-    document
-        .querySelectorAll(".tag")
-        .forEach(button => {
+  document.querySelectorAll(".tag").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedTag = button.dataset.tag;
 
-            button.addEventListener("click", () => {
+      currentPage = 1;
 
-                selectedTag = button.dataset.tag;
+      renderTags();
 
-                currentPage = 1;
-
-                renderTags();
-
-                applyFilters();
-            });
-
-        });
+      applyFilters();
+    });
+  });
 }
 
 function applyFilters() {
+  const searchText = searchInput.value.trim().toLowerCase();
 
-    const searchText =
-        searchInput.value
-            .trim()
-            .toLowerCase();
+  filteredPosts = allPosts.filter((post) => {
+    const tagMatch =
+      selectedTag === "All" || (post.tags || []).includes(selectedTag);
 
-    filteredPosts = allPosts.filter(post => {
+    const text = [post.title, post.excerpt, ...(post.tags || [])]
+      .join(" ")
+      .toLowerCase();
 
-        const tagMatch =
-            selectedTag === "All"
-            ||
-            (post.tags || []).includes(selectedTag);
+    const searchMatch = text.includes(searchText);
 
-        const text =
-            [
-                post.title,
-                post.excerpt,
-                ...(post.tags || [])
-            ]
-            .join(" ")
-            .toLowerCase();
+    return tagMatch && searchMatch;
+  });
 
-        const searchMatch =
-            text.includes(searchText);
-
-        return tagMatch && searchMatch;
-    });
-
-    renderPage(1);
+  renderPage(1);
 }
 
 function renderPage(pageNumber) {
+  currentPage = pageNumber;
 
-    currentPage = pageNumber;
+  const start = (pageNumber - 1) * POSTS_PER_PAGE;
 
-    const start =
-        (pageNumber - 1) * POSTS_PER_PAGE;
+  const end = start + POSTS_PER_PAGE;
 
-    const end =
-        start + POSTS_PER_PAGE;
+  const posts = filteredPosts.slice(start, end);
 
-    const posts =
-        filteredPosts.slice(start, end);
-
-    if (posts.length === 0) {
-
-        blogGrid.innerHTML = `
+  if (posts.length === 0) {
+    blogGrid.innerHTML = `
             <div class="empty-state">
                 No matching articles found.
             </div>
         `;
 
-        pagination.innerHTML = "";
+    pagination.innerHTML = "";
 
+    return;
+  }
+
+  blogGrid.innerHTML = posts.map(renderCard).join("");
+
+  document.querySelectorAll(".clickable-card").forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
         return;
-    }
+      }
 
-    blogGrid.innerHTML = posts
-        .map(renderCard)
-        .join("");
+      window.location.href = card.dataset.url;
+    });
 
-    renderPagination();
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+
+        window.location.href = card.dataset.url;
+      }
+    });
+  });
+
+  renderPagination();
 }
 
 function renderCard(post) {
+  const tags = (post.tags || [])
+    .map((tag) => `<span class="blog-tag">${escapeHtml(tag)}</span>`)
+    .join("");
 
-    const tags =
-        (post.tags || [])
-            .map(tag =>
-                `<span class="blog-tag">${escapeHtml(tag)}</span>`
-            )
-            .join("");
+  return `
+<article
+    class="blog-card clickable-card"
+    tabindex="0"
+    data-url="blog-post.html?post=${encodeURIComponent(post.file)}">
+        <h3>
+            ${escapeHtml(post.title)}
+        </h3>
 
-    return `
-        <article class="blog-card">
+        <p>
+            ${escapeHtml(post.excerpt || "")}
+        </p>
 
-            <h3>
-                ${escapeHtml(post.title)}
-            </h3>
+        <div class="blog-meta">
+            ${formatDate(post.date)}
+            •
+            ${estimateReadingTime(post.wordCount)}
+        </div>
 
-            <p>
-                ${escapeHtml(post.excerpt || "")}
-            </p>
+        <div class="blog-tags">
+            ${tags}
+        </div>
 
-            <div class="blog-meta">
+        <a
+            class="blog-link"
+            href="blog-post.html?post=${encodeURIComponent(post.file)}">
 
-                ${formatDate(post.date)}
+            Read Article →
 
-                •
+        </a>
 
-                ${estimateReadingTime(post.wordCount)}
-
-            </div>
-
-            <div class="blog-tags">
-                ${tags}
-            </div>
-
-            <a
-                class="blog-link"
-                href="blog-post.html?post=${encodeURIComponent(post.file)}">
-
-                Read Article →
-
-            </a>
-
-        </article>
-    `;
+    </article>
+`;
 }
 
 function renderPagination() {
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-    const totalPages =
-        Math.ceil(
-            filteredPosts.length /
-            POSTS_PER_PAGE
-        );
+  if (totalPages <= 1) {
+    pagination.innerHTML = "";
 
-    if (totalPages <= 1) {
+    return;
+  }
 
-        pagination.innerHTML = "";
+  let html = "";
 
-        return;
-    }
-
-    let html = "";
-
-    if (currentPage > 1) {
-
-        html += `
+  if (currentPage > 1) {
+    html += `
             <button
                 class="page-btn"
                 data-page="${currentPage - 1}">
@@ -268,11 +206,10 @@ function renderPagination() {
 
             </button>
         `;
-    }
+  }
 
-    for (let page = 1; page <= totalPages; page++) {
-
-        html += `
+  for (let page = 1; page <= totalPages; page++) {
+    html += `
             <button
                 class="page-btn ${page === currentPage ? "active" : ""}"
                 data-page="${page}">
@@ -281,11 +218,10 @@ function renderPagination() {
 
             </button>
         `;
-    }
+  }
 
-    if (currentPage < totalPages) {
-
-        html += `
+  if (currentPage < totalPages) {
+    html += `
             <button
                 class="page-btn"
                 data-page="${currentPage + 1}">
@@ -294,71 +230,49 @@ function renderPagination() {
 
             </button>
         `;
-    }
+  }
 
-    pagination.innerHTML = html;
+  pagination.innerHTML = html;
 
-    pagination
-        .querySelectorAll(".page-btn")
-        .forEach(button => {
+  pagination.querySelectorAll(".page-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      renderPage(parseInt(button.dataset.page));
 
-            button.addEventListener(
-                "click",
-                () => {
-
-                    renderPage(
-                        parseInt(button.dataset.page)
-                    );
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                }
-            );
-
-        });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  });
 }
 
 function estimateReadingTime(wordCount) {
+  if (!wordCount) {
+    return "1 min read";
+  }
 
-    if (!wordCount) {
-        return "1 min read";
-    }
+  const minutes = Math.max(1, Math.ceil(wordCount / 200));
 
-    const minutes =
-        Math.max(
-            1,
-            Math.ceil(wordCount / 200)
-        );
-
-    return `${minutes} min read`;
+  return `${minutes} min read`;
 }
 
 function formatDate(dateString) {
-
-    return new Date(dateString)
-        .toLocaleDateString(
-            undefined,
-            {
-                year: "numeric",
-                month: "short",
-                day: "numeric"
-            }
-        );
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 function escapeHtml(text) {
+  if (!text) {
+    return "";
+  }
 
-    if (!text) {
-        return "";
-    }
-
-    return text
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
