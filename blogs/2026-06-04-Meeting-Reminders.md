@@ -1,3 +1,9 @@
+---
+title: Meeting Reminders
+date: 2026-06-04
+tags: Reminders
+excerpt: Losing many inquiries and Meeting Reminders. What are the solutions.
+---
 **Meeting Reminders**  
 **Losing many inquiries and Meeting Reminders. What are the solutions.**  
 The Cost of Stagnation: Solving the Crisis of Lost Inquiries and Missed Meetings  

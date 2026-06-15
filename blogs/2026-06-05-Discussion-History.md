@@ -1,3 +1,9 @@
+---
+title: Discussion History
+date: 2026-06-05
+tags: Discussions
+excerpt: If met the customer how to remember dialed meeting and Discussion History?
+---
 **Discussion History**
 
 **If met the customer how to remember dialed meeting and Discussion History?**
