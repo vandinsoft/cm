@@ -25,7 +25,7 @@ async function initialize() {
     return;
   }
   try {
-    const response = await fetch(`blogs/${file}`);
+    const response = await fetch(`/cm/blogs/${file}`);
 
     if (!response.ok) {
       throw new Error("Unable to load article");
