@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vandin Contact Manager</title>
-
+    <link rel="icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="header.js"></script>
   </head>
@@ -20,9 +20,21 @@
         </p>
 
         <form id="consultationForm" class="contact-form">
-          <input type="hidden" name="access_key" value="c65c8033-51c3-427b-a42f-543de06604a4"/>
-          <input type="hidden" name="subject" value="New Consultation Request"/>
-          <input type="hidden" name="from_name" value="VANDIN Contact Manager Website"/>
+          <input
+            type="hidden"
+            name="access_key"
+            value="c65c8033-51c3-427b-a42f-543de06604a4"
+          />
+          <input
+            type="hidden"
+            name="subject"
+            value="New Consultation Request"
+          />
+          <input
+            type="hidden"
+            name="from_name"
+            value="VANDIN Contact Manager Website"
+          />
           <input type="checkbox" name="botcheck" style="display: none" />
 
           <div class="form-group">
@@ -39,7 +51,7 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required />
           </div>
-          
+
           <button id="sendButton" type="submit" class="btn btn-primary">
             Send Request
           </button>
