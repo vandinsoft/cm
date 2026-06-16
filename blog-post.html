@@ -6,44 +6,30 @@
     <title>Vandin Contact Manager</title>
 
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="css/blog.css">
-    <script src="header.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="css/blog.css" />
+     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <div id="header"></div>
 
-<header class="article-header">
+    <section class="article-header">
+      <div class="article-container">
+        <a href="blog.html" class="back-link"> ← Back to Blog </a>
 
-    <div class="article-container">
+        <h1 id="articleTitle">Loading...</h1>
 
-        <a href="blog.html" class="back-link">
-            ← Back to Blog
-        </a>
+        <div id="articleMeta" class="article-meta"></div>
+      </div>
+    </section>
 
-        <h1 id="articleTitle">
-            Loading...
-    </h1>
-
-        <div id="articleMeta" class="article-meta">
-    </div>
-
-    </div>
-
-  </header>
-
-<main class="article-container">
-
-    <article id="articleContent"
-             class="article-content">
-
+    <main class="article-container">
+      <article id="articleContent" class="article-content">
         Loading article...
+      </article>
+    </main>
 
-    </article>
+    <script src="js/blog-viewer.js"></script>
+       <script src="header.js"></script>
 
-</main>
-
-<script src="js/blog-viewer.js"></script>
-
-</body>
+  </body>
 </html>

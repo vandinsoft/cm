@@ -59,6 +59,7 @@ body {
    ========================= */
 
 .search-section {
+    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
 
@@ -342,4 +343,41 @@ body {
 
 .clickable-card {
     cursor: pointer;
+}
+
+.article-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 1rem 0;
+}
+
+.article-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.article-header h1 {
+    margin: 0;
+    color: #0066cc;
+    font-size: 2.5rem;
+    line-height: 0.2;
+}
+
+.article-meta {
+    margin-top: 0.75rem;
+    color: #666;
+    font-size: 0.95rem;
 }
