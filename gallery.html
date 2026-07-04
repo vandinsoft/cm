@@ -65,6 +65,41 @@
         .lightbox.open {
             display: flex;
         }
+
+        @media (max-width: 768px) {
+            .gallery-page {
+                padding: 20px 12px;
+            }
+
+            .gallery-title {
+                margin-bottom: 20px;
+            }
+
+            .gallery-grid {
+                columns: 2 180px;
+                column-gap: 12px;
+            }
+
+            .gallery-card {
+                margin-bottom: 12px;
+                border-radius: 12px;
+            }
+
+            .lightbox {
+                padding: 12px;
+            }
+
+            .lightbox img {
+                max-width: 100%;
+                max-height: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                columns: 1;
+            }
+        }
     </style>
 
     <script src="header.js"></script>
@@ -85,7 +120,7 @@
 </div>
 
 <div id="lightbox" class="lightbox">
-    <img id="lightboxImage">
+    <img id="lightboxImage" alt="Gallery preview">
 </div>
 
 <script>

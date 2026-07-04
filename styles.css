@@ -18,6 +18,14 @@
   box-sizing: border-box;
 }
 
+img,
+canvas,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -29,6 +37,7 @@ body {
   background: #fafafa;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -121,6 +130,27 @@ nav {
 .nav-links {
   display: flex;
   gap: 30px;
+}
+
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--contrast);
+}
+
+.nav-toggle span + span {
+  margin-top: 4px;
 }
 
 .nav-links a {
@@ -430,4 +460,122 @@ footer {
   color: #ffffff;
   cursor: not-allowed;
   opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 18px;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  nav {
+    position: relative;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: fit-content;
+    padding: 4px 0;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pdf-navigation {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+
+  .hero,
+  .main-content,
+  .section,
+  .pdf-page,
+  .contact-section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .card,
+  .download-card,
+  .audience-container,
+  .contact-card,
+  .contact-form-card {
+    padding: 16px;
+  }
+
+  .audience-item {
+    font-size: 0.85rem;
+  }
+
+  .pdf-container {
+    padding: 10px;
+  }
+
+  .pdf-navigation {
+    justify-content: space-between;
+  }
+
+  .pdf-navigation span {
+    width: 100%;
+    text-align: center;
+    order: -1;
+  }
+
+  .pdf-navigation button {
+    flex: 1 1 calc(50% - 6px);
+    padding: 10px 12px;
+  }
+
+  .form-submit {
+    width: 100%;
+    min-width: 0;
+  }
+
+  footer {
+    padding: 0 14px;
+  }
 }

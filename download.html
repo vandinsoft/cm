@@ -1,15 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <title>Downloads</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vandin Contact Manager</title>
+        <link rel="icon" href="images/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="header.js"></script>
+        <style>
+            .downloads-page {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+            }
 
-<h1>Downloads</h1>
+            .downloads-card {
+                background: rgba(255, 255, 255, 0.82);
+                backdrop-filter: blur(12px);
+                border-radius: 18px;
+                border: 1px solid rgba(255, 255, 255, 0.8);
+                padding: 24px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            }
 
-<a href="https://github.com/vandinsoft/cm/releases/latest">
-    Download Latest Version
-</a>
+            .downloads-card h1 {
+                margin-bottom: 10px;
+            }
 
-</body>
+            .downloads-card p {
+                margin-bottom: 16px;
+            }
+
+            @media (max-width: 640px) {
+                .downloads-page {
+                    padding: 12px;
+                }
+
+                .downloads-card {
+                    padding: 16px;
+                }
+
+                .downloads-card h1 {
+                    font-size: 1.6rem;
+                }
+
+                .downloads-card .btn {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header"></div>
+
+        <main class="downloads-page">
+            <section class="downloads-card">
+                <h1>Downloads</h1>
+                <p>Get the latest stable version of VANDIN Contact Manager.</p>
+
+                <a class="btn btn-primary" href="https://github.com/vandinsoft/cm/releases/latest">
+                    Download Latest Version
+                </a>
+            </section>
+        </main>
+    </body>
 </html>
